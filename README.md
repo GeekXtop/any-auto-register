@@ -71,12 +71,12 @@
 
 ## 技术栈
 
-| 层级 | 技术 |
-| --- | --- |
-| 后端 | FastAPI + SQLite（SQLModel） |
-| 前端 | React + TypeScript + Vite |
-| HTTP | curl_cffi |
-| 浏览器自动化 | Playwright / Camoufox |
+| 层级         | 技术                         |
+| ------------ | ---------------------------- |
+| 后端         | FastAPI + SQLite（SQLModel） |
+| 前端         | React + TypeScript + Vite    |
+| HTTP         | curl_cffi                    |
+| 浏览器自动化 | Playwright / Camoufox        |
 
 ## 环境要求
 
@@ -124,18 +124,18 @@
 
 根据当前注册页实际配置项，项目支持以下邮箱服务：
 
-| 服务名称 | 标识 | 说明 |
-| --- | --- | --- |
-| LuckMail | `luckmail` | 可免费领取 **125 个邮箱**用于测试，且**每天签到还能继续领取邮箱**；可通过 [https://mails.luckyous.com/9331211B](https://mails.luckyous.com/9331211B) 进入，支持博主获得少量赏金，用于维持开源测试 |
-| MoeMail | `moemail` | 默认常用方案，自动注册账号并生成邮箱 |
-| TempMail.lol | `tempmail_lol` | 临时邮箱方案，部分地区可能需要代理 |
-| SkyMail (CloudMail) | `skymail` | 通过 API / Token / 域名使用 |
-| YYDS Mail / MaliAPI | `maliapi` | 支持域名与自动域名策略 |
-| GPTMail | `gptmail` | 基于 GPTMail API 生成临时邮箱并轮询邮件，支持已知域名时本地拼装随机地址 |
-| DuckMail | `duckmail` | 临时邮箱方案 |
-| Freemail | `freemail` | 自建邮箱服务 |
-| Laoudo | `laoudo` | 固定邮箱方案 |
-| CF Worker | `cfworker` | Cloudflare Worker 自建邮箱 |
+| 服务名称            | 标识           | 说明                                                                                                                                                                                              |
+| ------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| LuckMail            | `luckmail`     | 可免费领取 **125 个邮箱**用于测试，且**每天签到还能继续领取邮箱**；可通过 [https://mails.luckyous.com/9331211B](https://mails.luckyous.com/9331211B) 进入，支持博主获得少量赏金，用于维持开源测试 |
+| MoeMail             | `moemail`      | 默认常用方案，自动注册账号并生成邮箱                                                                                                                                                              |
+| TempMail.lol        | `tempmail_lol` | 临时邮箱方案，部分地区可能需要代理                                                                                                                                                                |
+| SkyMail (CloudMail) | `skymail`      | 通过 API / Token / 域名使用                                                                                                                                                                       |
+| YYDS Mail / MaliAPI | `maliapi`      | 支持域名与自动域名策略                                                                                                                                                                            |
+| GPTMail             | `gptmail`      | 基于 GPTMail API 生成临时邮箱并轮询邮件，支持已知域名时本地拼装随机地址                                                                                                                           |
+| DuckMail            | `duckmail`     | 临时邮箱方案                                                                                                                                                                                      |
+| Freemail            | `freemail`     | 自建邮箱服务                                                                                                                                                                                      |
+| Laoudo              | `laoudo`       | 固定邮箱方案                                                                                                                                                                                      |
+| CF Worker           | `cfworker`     | Cloudflare Worker 自建邮箱                                                                                                                                                                        |
 
 ### Kiro 邮箱说明
 
@@ -360,14 +360,14 @@ DATABASE_URL=sqlite:////app/data/account_manager.db
 
 ### 常用环境变量
 
-| 变量名 | 默认值 | 说明 |
-| --- | --- | --- |
-| `HOST` | `0.0.0.0` | FastAPI 监听地址 |
-| `PORT` | `8000` | FastAPI 监听端口 |
-| `DATABASE_URL` | `sqlite:////app/data/account_manager.db` | SQLite 数据库地址 |
-| `APP_ENABLE_SOLVER` | `1` | 是否自动启动本地 Solver，设为 `0` 可禁用 |
-| `SOLVER_PORT` | `8889` | Solver 监听端口 |
-| `LOCAL_SOLVER_URL` | `http://127.0.0.1:8889` | 后端访问 Solver 的地址 |
+| 变量名              | 默认值                                   | 说明                                     |
+| ------------------- | ---------------------------------------- | ---------------------------------------- |
+| `HOST`              | `0.0.0.0`                                | FastAPI 监听地址                         |
+| `PORT`              | `8000`                                   | FastAPI 监听端口                         |
+| `DATABASE_URL`      | `sqlite:////app/data/account_manager.db` | SQLite 数据库地址                        |
+| `APP_ENABLE_SOLVER` | `1`                                      | 是否自动启动本地 Solver，设为 `0` 可禁用 |
+| `SOLVER_PORT`       | `8889`                                   | Solver 监听端口                          |
+| `LOCAL_SOLVER_URL`  | `http://127.0.0.1:8889`                  | 后端访问 Solver 的地址                   |
 
 如需传入 `SMSTOME_COOKIE`、`OPENAI_*` 等配置，可直接写入仓库根目录 `.env` 文件，`docker compose` 会自动注入到容器环境中。
 
@@ -398,11 +398,11 @@ CAMOUFOX_VERSION=135.0.1 CAMOUFOX_RELEASE=beta.24 docker compose build app
 
 项目当前支持按需安装/启动以下外部组件：
 
-| 项目 | 用途 | Git 地址 |
-| --- | --- | --- |
-| CLIProxyAPI | CPA / 代理池管理服务 | `https://github.com/router-for-me/CLIProxyAPI.git` |
-| grok2api | Grok token 管理、回填、聊天/API 服务 | `https://github.com/chenyme/grok2api.git` |
-| kiro-account-manager | Kiro 账号管理相关插件 | `https://github.com/hj01857655/kiro-account-manager.git` |
+| 项目                 | 用途                                 | Git 地址                                                 |
+| -------------------- | ------------------------------------ | -------------------------------------------------------- |
+| CLIProxyAPI          | CPA / 代理池管理服务                 | `https://github.com/router-for-me/CLIProxyAPI.git`       |
+| grok2api             | Grok token 管理、回填、聊天/API 服务 | `https://github.com/chenyme/grok2api.git`                |
+| kiro-account-manager | Kiro 账号管理相关插件                | `https://github.com/hj01857655/kiro-account-manager.git` |
 
 如果你后续要改成 `ghproxy`、`gitclone`、企业 Git 镜像或其他代理地址，需要同步修改：
 
