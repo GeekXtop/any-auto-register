@@ -22,6 +22,7 @@ from api.outlook import router as outlook_router
 from api.contribution import router as contribution_router
 
 EXPECTED_CONDA_ENV = os.getenv("APP_CONDA_ENV", "any-auto-register")
+EXPECTED_PYTHON_ENV = os.getenv("APP_PYTHON_ENV", "").strip()
 
 
 def _detect_conda_env() -> str:
@@ -37,20 +38,42 @@ def _detect_conda_env() -> str:
     return ""
 
 
+def _detect_python_env() -> str:
+    venv = os.getenv("VIRTUAL_ENV")
+    if venv:
+        return os.path.basename(os.path.normpath(venv))
+
+    # 直接以 venv 的 python.exe 启动时（如 uv + .venv/Scripts/python.exe），
+    # 可能不会注入 VIRTUAL_ENV，但 sys.prefix 仍指向虚拟环境目录。
+    prefix = os.path.normpath(sys.prefix)
+    base_prefix = os.path.normpath(getattr(sys, "base_prefix", prefix))
+    if prefix and prefix != base_prefix:
+        return os.path.basename(prefix)
+
+    # 兜底：某些场景下可通过 pyvenv.cfg 识别。
+    if prefix and os.path.isfile(os.path.join(prefix, "pyvenv.cfg")):
+        return os.path.basename(prefix)
+
+    return _detect_conda_env()
+
+
 def _print_runtime_info() -> None:
-    current_env = _detect_conda_env()
+    current_env = _detect_python_env()
+    expected_env = EXPECTED_PYTHON_ENV or EXPECTED_CONDA_ENV
     print(f"[Runtime] Python: {sys.executable}")
-    print(f"[Runtime] Conda Env: {current_env or '未检测到'}")
-    if EXPECTED_CONDA_ENV == "docker":
+    print(f"[Runtime] Python Env: {current_env or '未检测到'}")
+    if expected_env == "docker":
         return
-    if current_env and current_env != EXPECTED_CONDA_ENV:
+    if not expected_env:
+        return
+    if current_env and current_env != expected_env:
         print(
-            f"[WARN] 当前环境为 '{current_env}'，推荐使用 '{EXPECTED_CONDA_ENV}' 启动，"
+            f"[WARN] 当前环境为 '{current_env}'，推荐使用 '{expected_env}' 启动，"
             "否则 Turnstile Solver 可能因依赖缺失而无法启动。"
         )
     elif not current_env:
         print(
-            f"[WARN] 未检测到 conda 环境，推荐使用 '{EXPECTED_CONDA_ENV}' 启动，"
+            f"[WARN] 未检测到虚拟环境，推荐使用 '{expected_env}' 启动，"
             "否则 Turnstile Solver 可能因依赖缺失而无法启动。"
         )
 
